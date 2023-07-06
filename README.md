@@ -15,8 +15,6 @@
 - [Links](#links)
 - [Status](#status)
 
-
-
 ## Motivations <a name="motivations"></a>
 
 What was your motivation?
@@ -34,14 +32,13 @@ Some of the challenges you faced and features you hope to implement in the futur
 - step by step of pipeline / modelling
 - summary on data (unless in section below)
 
-
 ## Data used (if any) <a name="data"></a>
 
 Description of the public data used in this Project
 
 ## Visuals <a name="visuals"></a>
 
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). 
+Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos).
 
 ```text
 To link to pictures:
@@ -80,7 +77,6 @@ git clone https://github.com/jmballard/NAME_OF_REPO.git
 
 Here is the content of this repo:
 
-
 ```bash
 .
 ├── config
@@ -115,11 +111,9 @@ Here is the content of this repo:
 └── README.md
 ```
 
-
 ## Possible improvements on this project: <a name="improvements"></a>
 
 List of possible improvements
-
 
 ## Credits <a name="credits"></a>
 
@@ -127,12 +121,11 @@ If you worked on the project as a team or an organization, list your collaborato
 
 Also, if you followed tutorials or referenced a certain material that might help the user to build that particular project, include links to those here as well.
 
-
 ## License <a name="license"></a>
 
 MIT License
 
-Copyright (c) [2022] [Julie Ballard]
+Copyright (c) \[2022\] \[Julie Ballard\]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
