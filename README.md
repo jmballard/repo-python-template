@@ -47,6 +47,8 @@ To link to pictures:
 
 ## Packages used <a name="packages_used"></a>
 
+For the analysis:
+
 - os
 - sys
 - numpy
@@ -63,15 +65,120 @@ To link to pictures:
 - flask
 - pathlib
 
+For code quality:
+
+- pre-commit
+- black
+- flake8
+- isort
+- nbstripout
+- pydocstyle
+- sqlstuff
+- mdformat
+- yesqa
+
+For more information: read the requirements.txt file.
+
 ## Instructions <a name="instructions"></a>
 
-How to install and run the project
+### Prerequisites
+
+You need to have Python, Make and Poetry installed on your machine.
+
+To install python: [Official website](https://www.python.org/downloads/)
+
+To install Make: first install [Chocolatey](https://chocolatey.org/install), then use it to install [make](https://community.chocolatey.org/packages/make).
+
+To install Poetry: [Official website](https://python-poetry.org/docs/#installing-with-the-official-installer)
+
+### Initial set-up
 
 You can clone this repository by opening Git Bash and the command line
 
 ```text
 git clone https://github.com/jmballard/NAME_OF_REPO.git
 ```
+
+Copy the local clone (without the `.git` folder) to the new project’s repo (which has its own `.git`).
+
+### Set up with Make
+
+Make sure you don’t have any virtual environment activated in the CLI. In a command prompt, run setup target using make: `make setup`.
+
+`make` looks for a Makefile in the project’s root that contains a set of rules to run. Each rule has 3 parts: a target, a list of prerequisites, and a recipe in the following format:
+
+```bash
+target: prerequisites
+    recipes
+```
+
+The setup target on the template Makefile in line 8 doesn’t have any recipes but rather 3 prerequisites, which are 3 make targets (a target that runs other targets).
+
+Let’s have a look at these 3 targets that the current Makefile contains:
+
+1. It will install an isolated `.venv` in the project's library.
+
+The venv target in Makefile > line 10 has one prerequisite $(GLOBAL_PYTHON) which is the value of a variable defined earlier in Makefile > line 4. The variable GLOBAL_PYTHON grabs the full path to the python interpreter which we installed earlier. If the prerequisite interpreter path doesn’t exist, you will get an error when running the venv target
+
+Makefile > line 12 is where poetry creates an isolated .venv folder in the project’s root using the interpreter full path. To make sure .venv is created in the root directory of the project, the following configuration is added in the poetry.toml 📃 (where all poetry configurations go):
+
+```text
+[virtualenvs]
+in-project = true
+```
+
+2. It will install some packages in the `.venv`.
+
+The install target in Makefile > line 14 has one prerequisite $(LOCAL_PYTHON) which is the value of a variable defined earlier in Makefile > line 5. The variable LOCAL_PYTHON checks if there is a path to a python interpreter in .venv. If the prerequisite interpreter path doesn’t exist, you will get an error when running the install target
+
+Makefile > line 16 is where poetry installs the projects’ dependencies found in the pyproject.toml file.
+
+Poetry separates packages into dependencies pyproject.toml > line 7 and development dependencies pyproject.toml > line 11. When Poetry has finished installing all packages in .venv, it writes their exact versions to a poetry.lock file that you should commit to the project’s repo 🔗 so that the team working on the project is locked to the same versions of dependencies 🔗
+
+Our packages have different version constraints. For example "\*" means latest, while "^1" means >=1.0.0 \<2.0.0.
+
+3. It will install the pre-commit hooks.
+
+The hooks currently used are:
+
+1. Black for formatting codes
+1. flake8 for linting
+1. isort to sort imports
+1. nbstripout to strip all notebooks output
+1. pydocstyle to check doc style is complaint with Google docstrings format
+1. check-ast to check files parse as valid python
+1. end-of-file-fixer to check files end in a newline and only a newline
+1. trailing-whitespace to check there are no trailing whitespace
+
+The clean target in Makefile > line 20 cleans up your project by:
+
+- Removing the directory .git\\hooks if it exists
+- Removing the directory .venv if it exists
+- Removing the file poetry.lock if it exists
+
+### Managing packages
+
+To add a package to the project’s dependencies or dev dependencies:
+
+```bash
+poetry add <package>
+poetry add <package> --dev
+```
+
+To remove a package from the project’s dependencies or dev dependencies:
+
+```bash
+poetry remove <package>
+poetry remove <package> --dev
+```
+
+These commands will automatically update the pyproject.toml and the poetry.lock files
+
+### VSCode integration
+
+If the IDE used is VSCode, you can integrate some of the dev packages to run automatically on your code on save.
+
+To do this, add the setting.json values to the workspace settings. Whenever you save a script (ctrl + s), it will be formatted with black, linted with flake8, and packages sorted with isort
 
 ## Files <a name="files"></a>
 
@@ -147,7 +254,9 @@ SOFTWARE.
 
 ## Links <a name="links"></a>
 
-Links to any web page if any
+Documentation about the setup: (Medium article)\[https://drgabrielharris.medium.com/python-how-using-poetry-make-and-pre-commit-hooks-to-setup-a-repo-template-for-your-ds-team-15b5a77d0e0f\]
+
+Other links if needed
 
 ## Project status  <a name="status"></a>
 

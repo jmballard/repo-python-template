@@ -9,11 +9,6 @@
     hooks:
     -   id: flake8
         args: ['--max-line-length=88', '--extend-ignore=E203,E501,W503', '--exclude=.venv']
--   repo: https://github.com/PyCQA/isort
-    rev: '5.10.1'
-    hooks:
-    -   id: isort
-        args: ['--profile=black']
 -   repo: https://github.com/kynan/nbstripout
     rev: '0.6.1'
     hooks:
