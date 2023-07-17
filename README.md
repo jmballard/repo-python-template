@@ -70,7 +70,7 @@ For code quality:
 - pre-commit
 - black
 - flake8
-- isort
+- isort (In GitHub actions only)
 - nbstripout
 - pydocstyle
 - sqlstuff
